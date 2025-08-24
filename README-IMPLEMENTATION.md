@@ -65,8 +65,7 @@ at container start.
 
 Build & run with Compose:
 ```bash
-docker compose build
-docker compose up -d
+docker compose up --build -d
 ```
 
 Services:
@@ -91,7 +90,6 @@ curl http://localhost:3200/health
 **Prereqs:** Minikube + kubectl. Start Minikube and set Docker env so images are locally available to cluster:
 ```bash
 minikube start
-eval $(minikube docker-env)   # PowerShell: & minikube -p minikube docker-env | Invoke-Expression
 ```
 
 Build images inside Minikube's Docker:
@@ -103,12 +101,7 @@ docker build -t govind2024/frontend-green:v1 ./frontend-green
 
 Apply manifests:
 ```bash
-kubectl apply -f k8s/mongo.yaml
-kubectl apply -f k8s/backend.yaml
-kubectl apply -f k8s/frontend-blue.yaml
-kubectl apply -f k8s/frontend-green.yaml
-kubectl apply -f k8s/frontend-service.yaml
-# (optional) kubectl apply -f k8s/ingress.yaml && minikube addons enable ingress
+kubectl apply -f k8s/
 ```
 
 Check:
@@ -121,7 +114,6 @@ kubectl get svc frontend
 Access frontend Service (NodePort):
 ```bash
 minikube service frontend --url
-# Open the printed URL in your browser
 ```
 
 Health checks/readiness probes are configured on all pods.
@@ -175,13 +167,4 @@ kubectl patch service frontend -p '{"spec":{"selector":{"app":"frontend","color"
 4. Blue-green switch in action:
    - Output of `/health` before and after `kubectl patch`
    - Browser screenshots showing basic vs enhanced UI
-
----
-
-## Troubleshooting
-
-- **Pods not ready**: `kubectl describe pod <name>` and `kubectl logs`
-- **Images not found**: Ensure you built images after `eval $(minikube docker-env)`
-- **Ingress 404**: Enable addon: `minikube addons enable ingress`
-- **CORS**: Backend enables CORS globally. If needed, restrict origins.
-- **Mongo connection**: Confirm `mongo` service DNS resolves in pod: `ping mongo`
+   

@@ -307,7 +307,7 @@ graph TD
     B -->|Run Tests & Validate| C{"Validation<br/>Successful?"}:::orange
     C -->|Yes| D["Update Service Selector<br/>to Green Environment"]:::green
     C -->|No| F["Fix Issues and<br/>Redeploy Green"]:::orange
-    F -->|C
+    F -->|Revalidate Deployment| C
     D -->|Redirect Traffic| E["Green Environment<br/>Active"]:::green
     E -->|Keep Blue as Rollback Option| G["Blue Environment<br/>On Standby"]:::blue
     G -->|If Issues Detected| A
@@ -315,7 +315,6 @@ graph TD
     classDef blue fill:#007bff,stroke:#004080,color:#ffffff,stroke-width:2px;
     classDef green fill:#28a745,stroke:#1d6d2b,color:#ffffff,stroke-width:2px;
     classDef orange fill:#ff9800,stroke:#cc7a00,color:#ffffff,stroke-width:2px;
-
 ```
 
 ### Flow Explanation

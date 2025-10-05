@@ -303,16 +303,17 @@ docker image rm registration-backend:1.0 registration-frontend-blue:1.0 registra
 
 ```mermaid
 graph TD
-    A["Blue Environment\n(Active Production)"]:::blue -->|Deploy Green| B["Green Environment \n(Staging/Idle)"]:::green
-    B -->|Run Tests & Validate| C{Validation Successful?}
-    C -->|Yes| D["Update Service Selector\nto Green Environment"]:::green
-    C -->|No| F["Fix Issues and\nRedeploy Green"]:::green
-    D -->|Redirect Traffic| E["Green Environment\nActive"]:::green
-    E -->|Keep Blue as Rollback Option| G["Blue Environment\nOn Standby"]:::blue
+    A["Blue Environment<br/>(Active Production)"]:::blue -->|Deploy Green| B["Green Environment<br/>(Prepared for Release)"]:::green
+    B -->|Run Tests & Validate| C{"Validation<br/>Successful?"}:::orange
+    C -->|Yes| D["Update Service Selector<br/>to Green Environment"]:::green
+    C -->|No| F["Fix Issues and<br/>Redeploy Green"]:::orange
+    D -->|Redirect Traffic| E["Green Environment<br/>Active"]:::green
+    E -->|Keep Blue as Rollback Option| G["Blue Environment<br/>On Standby"]:::blue
     G -->|If Issues Detected| A
 
     classDef blue fill:#007bff,stroke:#004080,color:#ffffff,stroke-width:2px;
     classDef green fill:#28a745,stroke:#1d6d2b,color:#ffffff,stroke-width:2px;
+    classDef orange fill:#ff9800,stroke:#cc7a00,color:#ffffff,stroke-width:2px;
 
 ```
 

@@ -307,6 +307,7 @@ graph TD
     B -->|Run Tests & Validate| C{"Validation<br/>Successful?"}:::orange
     C -->|Yes| D["Update Service Selector<br/>to Green Environment"]:::green
     C -->|No| F["Fix Issues and<br/>Redeploy Green"]:::orange
+    F -->|C
     D -->|Redirect Traffic| E["Green Environment<br/>Active"]:::green
     E -->|Keep Blue as Rollback Option| G["Blue Environment<br/>On Standby"]:::blue
     G -->|If Issues Detected| A

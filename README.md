@@ -303,23 +303,12 @@ docker image rm registration-backend:1.0 registration-frontend-blue:1.0 registra
 
 ```mermaid
 graph TD
-    A[Blue Environment Running] -->|Deploy Green| B[Green Environment Prepared]
-    B -->|Validate Green| C{Green Ready?}
-    C -->|Yes| D[Update Service Selector]
-    C -->|No| B
-    D -->|Redirect Traffic| E[Green Now Active]
-    E -->|Rollback Option| A
-```
-
-
-```mermaid
-graph TD
-    A["Blue Environment 🟦 \n(Active Production)"]:::blue -->|Deploy Green| B["Green Environment 🟩 \n(Staging/Idle)"]:::green
+    A["Blue Environment\n(Active Production)"]:::blue -->|Deploy Green| B["Green Environment \n(Staging/Idle)"]:::green
     B -->|Run Tests & Validate| C{Validation Successful?}
     C -->|Yes| D["Update Service Selector\nto Green Environment"]:::green
     C -->|No| F["Fix Issues and\nRedeploy Green"]:::green
-    D -->|Redirect Traffic| E["Green Environment\nActive 🟩"]:::green
-    E -->|Keep Blue as Rollback Option| G["Blue Environment\nOn Standby 🟦"]:::blue
+    D -->|Redirect Traffic| E["Green Environment\nActive"]:::green
+    E -->|Keep Blue as Rollback Option| G["Blue Environment\nOn Standby"]:::blue
     G -->|If Issues Detected| A
 
     classDef blue fill:#007bff,stroke:#004080,color:#ffffff,stroke-width:2px;

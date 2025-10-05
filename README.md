@@ -301,6 +301,29 @@ docker image rm registration-backend:1.0 registration-frontend-blue:1.0 registra
 
 ## Diagram
 
+```mermaid
+graph TD
+    A[Blue Environment Running] -->|Deploy Green| B[Green Environment Prepared]
+    B -->|Validate Green| C{Green Ready?}
+    C -->|Yes| D[Update Service Selector]
+    C -->|No| B
+    D -->|Redirect Traffic| E[Green Now Active]
+    E -->|Rollback Option| A
+```
+
+----
+
+```mermaid
+graph TD
+    A[Blue Environment (Active Production)] -->|Deploy Green Version| B[Green Environment (Staging/Idle)]
+    B -->|Run Tests & Validate| C{Validation Successful?}
+    C -->|Yes| D[Update Service Selector to Green]
+    C -->|No| F[Fix Issues and Redeploy Green]
+    D -->|Redirect User Traffic| E[Green Environment Active]
+    E -->|Keep Blue as Backup| G[Blue Available for Rollback]
+    G -->|If Issues Found| A
+```
+
 
 ```mermaid
 graph TD

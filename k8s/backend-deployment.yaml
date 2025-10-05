@@ -1,11 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+<<<<<<< HEAD
   name: backend
+=======
+  name: backend-v1
+  labels:
+    app: registration-backend
+    version: v1
+>>>>>>> 6952196 (first commit)
 spec:
   replicas: 1
   selector:
     matchLabels:
+<<<<<<< HEAD
       app: backend
   template:
     metadata:
@@ -33,10 +41,45 @@ spec:
               port: 5000
             initialDelaySeconds: 15
             periodSeconds: 10
+=======
+      app: registration-backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: registration-backend
+        version: v1
+    spec:
+      containers:
+      - name: backend
+        image: govind02420/backend:1.0.0
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: MONGO_URI
+            value: "mongodb://mongo:27017/blue-green-db"
+          - name: PORT
+            value: "5000"
+        ports:
+          - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+>>>>>>> 6952196 (first commit)
 ---
 apiVersion: v1
 kind: Service
 metadata:
+<<<<<<< HEAD
   name: backend
 spec:
   type: NodePort
@@ -46,3 +89,14 @@ spec:
     - port: 5000
       targetPort: 5000
       nodePort: 32000
+=======
+  name: backend-svc
+spec:
+  selector:
+    app: registration-backend
+    version: v1
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: ClusterIP
+>>>>>>> 6952196 (first commit)

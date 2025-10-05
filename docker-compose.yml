@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 version: "3.9"
+=======
+version: '3.8'
+>>>>>>> 6952196 (first commit)
 
 services:
   mongo:
     image: mongo:6
+<<<<<<< HEAD
     container_name: mongo
     ports:
       - "27017:27017"
@@ -41,6 +46,50 @@ services:
       - PORT=3200
     ports:
       - "3200:3200"
+=======
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: myapp/backend:1.0.0   # <-- versioned image
+    environment:
+      - MONGO_URI=mongodb://localhost:27017/blue-green-db
+      - PORT=5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  frontend-blue:
+    build:
+      context: ./frontend-blue
+      dockerfile: Dockerfile
+    image: myapp/frontend-blue:1.0.0   # <-- versioned image
+    environment:
+      - PORT=3100
+    ports:
+      - "3100:3100"
+    depends_on:
+      - backend
+
+  frontend-green:
+    build:
+      context: ./frontend-green
+      dockerfile: Dockerfile
+    image: myapp/frontend-green:1.0.0   # <-- versioned image
+    environment:
+      - PORT=3200
+    ports:
+      - "3200:3200"
+    depends_on:
+      - backend
+>>>>>>> 6952196 (first commit)
 
 volumes:
   mongo_data:

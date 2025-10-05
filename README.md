@@ -1,4 +1,3 @@
-
 # Blue-Green Deployment — README.md
 
 > A complete guide to run, containerize, and deploy a Node.js registration app with a Blue-Green deployment strategy on Minikube/Kubernetes.
@@ -311,6 +310,9 @@ graph TD
     D -->|Redirect Traffic| E[Green Now Active]
     E -->|Rollback Option| A
 ```
+
+----
+
 ```mermaid
 graph TD
     A[Blue Environment (Active Production)] -->|Deploy Green Version| B[Green Environment (Staging/Idle)]
@@ -321,6 +323,9 @@ graph TD
     E -->|Keep Blue as Backup| G[Blue Available for Rollback]
     G -->|If Issues Found| A
 ```
+
+---
+
 ```mermaid
 graph TD
     A[Blue Environment 🟦 <br>(Active Production)]:::blue -->|Deploy Green| B[Green Environment 🟩 <br>(Prepared for Release)]:::green
@@ -391,7 +396,7 @@ Place screenshots in `/Screenshots` :
 ![Creating-Docker-Container](Screenshots/2_Docker_Containerization/Creating-Docker-Container.png)
   - Check Services
 ![Check-Services](Screenshots/2_Docker_Containerization/Docker-Check-Services.png)
- - Fronent
+ - Frontend
 ![Fronent](Screenshots/2_Docker_Containerization/Docker-Fronent.png)
  - Services-Health:
 ![Services-Health](Screenshots/2_Docker_Containerization/Docker-Services-Health.png)
@@ -412,15 +417,7 @@ Place screenshots in `/Screenshots` :
   - Verify Changes (`Blue`)
 ![Verify_Changes](Screenshots/4_Blue-Green_Deployment_Implementation/Deployment-k8s-Rollback-Changes.png)
 
----
 
-## Screenshots
-Place screenshots in `/Screenshots` :
-
-**Local build success**
-  - Docker Build
-
-![docker_build](Screenshots/docker_build.png)
 ---
 
 ## Notes, best practices & security

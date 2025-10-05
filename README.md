@@ -301,30 +301,6 @@ docker image rm registration-backend:1.0 registration-frontend-blue:1.0 registra
 
 ## Diagram
 
-```mermaid
-graph TD
-    A[Blue Environment Running] -->|Deploy Green| B[Green Environment Prepared]
-    B -->|Validate Green| C{Green Ready?}
-    C -->|Yes| D[Update Service Selector]
-    C -->|No| B
-    D -->|Redirect Traffic| E[Green Now Active]
-    E -->|Rollback Option| A
-```
-
-----
-
-```mermaid
-graph TD
-    A[Blue Environment (Active Production)] -->|Deploy Green Version| B[Green Environment (Staging/Idle)]
-    B -->|Run Tests & Validate| C{Validation Successful?}
-    C -->|Yes| D[Update Service Selector to Green]
-    C -->|No| F[Fix Issues and Redeploy Green]
-    D -->|Redirect User Traffic| E[Green Environment Active]
-    E -->|Keep Blue as Backup| G[Blue Available for Rollback]
-    G -->|If Issues Found| A
-```
-
----
 
 ```mermaid
 graph TD
@@ -352,20 +328,6 @@ graph TD
 **5. Traffic Redirection** — Incoming traffic now routes to the Green environment seamlessly, ensuring zero downtime.
 
 **6. Rollback Option** — The Blue environment remains intact temporarily and can be reactivated quickly if issues arise in Green.
-
-### Flow Explanation
-
-**1. Blue Environment (Active Production)** — Initially serves live users.
-
-**2. Green Environment (Prepared)** — A new version of the app is deployed in parallel.
-
-**3. Validation Stage** — The Green version undergoes testing (readiness, integration, performance).
-
-**4. Service Switch** — Kubernetes or the load balancer updates selectors to point to Green.
-
-**5. Traffic Redirection** — User traffic seamlessly shifts to the new environment.
-
-**6. Rollback Safety** — Blue remains as a standby until Green proves stable.
 
 
 ---

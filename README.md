@@ -311,32 +311,20 @@ graph TD
     E -->|Rollback Option| A
 ```
 
-----
 
 ```mermaid
 graph TD
-    A[Blue Environment (Active Production)] -->|Deploy Green Version| B[Green Environment (Staging/Idle)]
+    A["Blue Environment 🟦 \n(Active Production)"]:::blue -->|Deploy Green| B["Green Environment 🟩 \n(Staging/Idle)"]:::green
     B -->|Run Tests & Validate| C{Validation Successful?}
-    C -->|Yes| D[Update Service Selector to Green]
-    C -->|No| F[Fix Issues and Redeploy Green]
-    D -->|Redirect User Traffic| E[Green Environment Active]
-    E -->|Keep Blue as Backup| G[Blue Available for Rollback]
-    G -->|If Issues Found| A
-```
-
-
-```mermaid
-graph TD
-    A[Blue Environment 🟦 <br>(Active Production)]:::blue -->|Deploy Green| B[Green Environment 🟩 <br>(Prepared for Release)]:::green
-    B -->|Run Tests & Validate| C{Validation Successful?}
-    C -->|Yes| D[Update Service Selector <br>to Green Environment]:::green
-    C -->|No| F[Fix Issues and Redeploy Green]:::green
-    D -->|Redirect Traffic| E[Green Environment Active 🟩]:::green
-    E -->|Keep Blue as Rollback Option| G[Blue Environment on Standby 🟦]:::blue
+    C -->|Yes| D["Update Service Selector\nto Green Environment"]:::green
+    C -->|No| F["Fix Issues and\nRedeploy Green"]:::green
+    D -->|Redirect Traffic| E["Green Environment\nActive 🟩"]:::green
+    E -->|Keep Blue as Rollback Option| G["Blue Environment\nOn Standby 🟦"]:::blue
     G -->|If Issues Detected| A
 
-    classDef blue fill:#007bff,color:#fff,stroke:#004080,stroke-width:2px;
-    classDef green fill:#28a745,color:#fff,stroke:#1d6d2b,stroke-width:2px;
+    classDef blue fill:#007bff,stroke:#004080,color:#ffffff,stroke-width:2px;
+    classDef green fill:#28a745,stroke:#1d6d2b,color:#ffffff,stroke-width:2px;
+
 ```
 
 ### Flow Explanation

@@ -293,8 +293,6 @@ Example readiness/liveness used above: HTTP `/health` on proper container port.
 ```bash
 kubectl delete -f k8s/
 minikube stop
-# Optional: remove local images
-docker image rm registration-backend:1.0 registration-frontend-blue:1.0 registration-frontend-green:1.0
 ```
 
 ---
